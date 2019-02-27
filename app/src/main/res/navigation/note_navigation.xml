@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/note_navigation"
+        app:startDestination="@id/noteListFragment">
+
+    <fragment
+            android:id="@+id/noteListFragment"
+            android:name="com.android.notenavigation.view.fragment.NoteListFragment"
+            android:label="Note"
+            tools:layout="@layout/fragment_note_list">
+        <action
+                android:id="@+id/action_noteDetail"
+                app:destination="@id/noteDetailFragment"
+                app:enterAnim="@anim/enter_slide_down"
+                app:exitAnim="@anim/exit_slide_down"
+                app:popEnterAnim="@anim/pop_enter_slide_up"
+                app:popExitAnim="@anim/pop_exit_slide_up"
+        />
+        <action
+                android:id="@+id/action_add_note"
+                app:destination="@id/addNoteFragment"
+        />
+    </fragment>
+    <fragment
+            android:id="@+id/noteDetailFragment"
+            android:name="com.android.notenavigation.view.fragment.NoteDetailFragment"
+            android:label="Note Detail"
+            tools:layout="@layout/fragment_note_detail">
+
+        <argument
+                android:name="noteId"
+                app:argType="integer"/>
+        <action
+                android:id="@+id/action_edit_note"
+                app:destination="@id/editNoteFragment"/>
+        <deepLink
+                android:id="@+id/deepLink"
+                app:uri="noteapp://notes/{noteId}"/>
+
+
+    </fragment>
+    <fragment
+            android:id="@+id/addNoteFragment"
+            android:name="com.android.notenavigation.view.fragment.AddNoteFragment"
+            android:label="Add Note"
+            tools:layout="@layout/fragment_add_note"/>
+    <fragment
+            android:id="@+id/editNoteFragment"
+            android:name="com.android.notenavigation.view.fragment.EditNoteFragment"
+            android:label="Edit Note"
+            tools:layout="@layout/fragment_edit_note">
+        <argument
+                android:name="noteId"
+                app:argType="integer"/>
+    </fragment>
+</navigation>
