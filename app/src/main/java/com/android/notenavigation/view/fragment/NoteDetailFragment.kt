@@ -3,6 +3,7 @@ package com.android.notenavigation.view.fragment
 
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,10 +14,13 @@ import com.android.notenavigation.Note
 import com.android.notenavigation.NoteStatus
 import com.android.notenavigation.R
 import com.android.notenavigation.Response
+import com.android.notenavigation.db.Note1
 import com.android.notenavigation.viewmodel.NoteDetailViewModel
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_note_detail.*
+import javax.inject.Inject
 
-class NoteDetailFragment : android.support.v4.app.Fragment() {
+class NoteDetailFragment :DaggerFragment() {
     private lateinit var viewModel:NoteDetailViewModel
     /**
      * type safe argument
@@ -25,9 +29,12 @@ class NoteDetailFragment : android.support.v4.app.Fragment() {
     private val noteId by lazy {
         NoteDetailFragmentArgs.fromBundle(arguments).noteId
     }
+    @Inject
+    lateinit var viewModelFactory:ViewModelProvider.Factory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel=ViewModelProviders.of(this).get(NoteDetailViewModel::class.java)
+        viewModel=ViewModelProviders.of(this,viewModelFactory).get(NoteDetailViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -65,7 +72,7 @@ class NoteDetailFragment : android.support.v4.app.Fragment() {
           }
       }
     }
-    private fun viewNote(note: Note?){
+    private fun viewNote(note: Note1?){
         view?.let {
             Title.text=note!!.title
             note_Id.text=note!!.id.toString()

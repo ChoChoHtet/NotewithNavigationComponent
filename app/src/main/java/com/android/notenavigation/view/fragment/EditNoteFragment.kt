@@ -2,9 +2,9 @@ package com.android.notenavigation.view.fragment
 
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +14,16 @@ import com.android.notenavigation.NoteStatus
 
 import com.android.notenavigation.R
 import com.android.notenavigation.Response
+import com.android.notenavigation.db.Note1
 import com.android.notenavigation.viewmodel.EditNoteViewModel
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_edit_note.*
+import javax.inject.Inject
 
-class EditNoteFragment : Fragment() {
+class EditNoteFragment : DaggerFragment() {
 private lateinit var viewModel: EditNoteViewModel
+    @Inject
+    lateinit var viewModelFactory:ViewModelProvider.Factory
 
     private val noteId by lazy {
         EditNoteFragmentArgs.fromBundle(arguments).noteId
@@ -26,7 +31,7 @@ private lateinit var viewModel: EditNoteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel=ViewModelProviders.of(this).get(EditNoteViewModel::class.java)
+        viewModel=ViewModelProviders.of(this,viewModelFactory).get(EditNoteViewModel::class.java)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,7 +66,7 @@ private lateinit var viewModel: EditNoteViewModel
         }
 
     }
-    private fun loadCurrentNote(note: Note){
+    private fun loadCurrentNote(note: Note1){
         view?.let {
             ed_update_text.setText(note.title)
         }

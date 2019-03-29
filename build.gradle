@@ -8,7 +8,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         //navigation
         classpath 'android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha07'
@@ -30,5 +30,7 @@ task clean(type: Delete) {
 }
 ext{
     archLifecycleVersion="1.1.1"
-    navigationVersion = "1.0.0-beta02"
+    navigationVersion = "1.0.0"
+    daggerVersion="2.17"
+    roomVersion="1.1.1"
 }

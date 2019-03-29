@@ -2,21 +2,24 @@ package com.android.notenavigation.view.fragment
 
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.android.notenavigation.*
+import com.android.notenavigation.Note
+import com.android.notenavigation.db.Note1
 import com.android.notenavigation.viewmodel.NoteListViewModel
-import kotlinx.android.synthetic.main.fragment_note_detail.*
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_note_list.*
+import javax.inject.Inject
 
-class NoteListFragment : Fragment(), NoteViewHolder.EventListener {
-    override fun toNoteDetailActivity(note: Note) {
+class NoteListFragment : DaggerFragment(), NoteViewHolder.EventListener {
+    override fun toNoteDetailActivity(note: Note1) {
         //pass id
         var navDirection= NoteListFragmentDirections.ActionNoteDetail(note.id)
         view?.let {
@@ -26,10 +29,11 @@ class NoteListFragment : Fragment(), NoteViewHolder.EventListener {
 
     private lateinit var noteAdapter: NoteAdapter
     private lateinit var viewModel: NoteListViewModel
-
+    @Inject
+    lateinit var viewModelFactory:ViewModelProvider.Factory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel=ViewModelProviders.of(this).get(NoteListViewModel::class.java)
+       viewModel=ViewModelProviders.of(this,viewModelFactory).get(NoteListViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -60,7 +64,7 @@ class NoteListFragment : Fragment(), NoteViewHolder.EventListener {
 
     }
 
-    private fun processResponse(noteList: List<Note>) {
+    private fun processResponse(noteList: List<Note1>) {
         if (noteList.isEmpty()){
             note_list.visibility=View.GONE
             tvNoNote.visibility=View.VISIBLE

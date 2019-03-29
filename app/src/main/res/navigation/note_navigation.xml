@@ -21,6 +21,10 @@
         <action
                 android:id="@+id/action_add_note"
                 app:destination="@id/addNoteFragment"
+                app:enterAnim="@anim/fade_in"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/fade_out"
         />
     </fragment>
     <fragment
@@ -34,7 +38,12 @@
                 app:argType="integer"/>
         <action
                 android:id="@+id/action_edit_note"
-                app:destination="@id/editNoteFragment"/>
+                app:destination="@id/editNoteFragment"
+                app:enterAnim="@anim/enter_slide_down"
+                app:exitAnim="@anim/exit_slide_down"
+                app:popEnterAnim="@anim/pop_enter_slide_up"
+                app:popExitAnim="@anim/pop_exit_slide_up"
+        />
         <deepLink
                 android:id="@+id/deepLink"
                 app:uri="noteapp://notes/{noteId}"/>

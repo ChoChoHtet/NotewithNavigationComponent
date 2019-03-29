@@ -1,8 +1,9 @@
 package com.android.notenavigation
 
 import java.lang.IllegalStateException
+import javax.inject.Inject
 
-object NoteManager {
+class NoteManager @Inject constructor(){
     private val notes= mutableMapOf<Int, String>()
     //add note
     fun addNote(text:String){
@@ -11,11 +12,17 @@ object NoteManager {
         notes[id]=text
     }
     //get note list
-    fun getNoteList(): List<Note> = notes.map { Note(it.key, it.value) }
+    fun getNoteList(): List<Note> = notes.map {
+        Note(
+            it.key,
+            it.value
+        )
+    }
+
 
     //get note by id
-    fun getNote(id:Int):Note? = notes.filter { it.key==id }
-        .map { Note(it.key,it.value) }
+    fun getNote(id:Int): Note? = notes.filter { it.key==id }
+        .map { Note(it.key, it.value) }
         .firstOrNull()
 
     //delete note by id
