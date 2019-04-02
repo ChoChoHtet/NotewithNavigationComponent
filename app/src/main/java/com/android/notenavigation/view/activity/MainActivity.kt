@@ -1,16 +1,24 @@
 package com.android.notenavigation.view.activity
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.android.notenavigation.R
+import com.android.notenavigation.databinding.ActivityMainBinding
 import dagger.android.support.DaggerAppCompatActivity
 
 class MainActivity :DaggerAppCompatActivity (){
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+       // setContentView(R.layout.activity_main)
+        bindingView()
         setupNavigation()
+    }
+    private fun bindingView(){
+        binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
+
     }
 
     private fun setupNavigation() {
