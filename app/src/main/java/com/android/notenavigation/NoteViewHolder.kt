@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.android.notenavigation.db.Note1
 import kotlinx.android.synthetic.main.note_item.view.*
+import java.util.*
 
 
 class NoteViewHolder(itemView: View, eventListener: EventListener) : RecyclerView.ViewHolder(itemView) {

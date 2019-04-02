@@ -1,5 +1,6 @@
 package com.android.notenavigation
 
+import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +10,8 @@ import com.android.notenavigation.db.Note1
 class NoteAdapter(private val eventListener: NoteViewHolder.EventListener) : RecyclerView.Adapter<NoteViewHolder>() {
     private var noteList= emptyList<Note1>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val view=LayoutInflater.from(parent.context).inflate(R.layout.note_item,parent,false)
+       val view=LayoutInflater.from(parent.context).inflate(R.layout.note_item,parent,false)
+       //val binding:com.android.notenavigation.databinding.NoteItemBinding=DataBindingUtil.inflate(LayoutInflater.from(parent.context),R.layout.note_item,parent,false)
         return NoteViewHolder(view,eventListener)
     }
 
