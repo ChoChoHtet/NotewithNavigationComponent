@@ -28,7 +28,6 @@ class NoteListViewModel @Inject constructor(private val noteDao: NoteDao) : View
         noteList.value=noteDao.getNoteList()
     }
     fun actionAddNewNote(){
-        Log.e("App","Aa")
         direction.value=true
     }
 

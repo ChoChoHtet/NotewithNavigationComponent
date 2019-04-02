@@ -11,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.android.notenavigation.R
 import com.android.notenavigation.databinding.FragmentAddNoteBinding
@@ -25,6 +27,7 @@ class AddNoteFragment : DaggerFragment() {
     lateinit var viewModelFactory:ViewModelProvider.Factory
 
     private lateinit var binding:FragmentAddNoteBinding
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,25 +51,18 @@ class AddNoteFragment : DaggerFragment() {
                 processResponse(response)
             }
         })
-        /*//save note
-        btnSaveNote.setOnClickListener {
-          //  viewModel.addNote(edTitle.text.toString())
-            Toast.makeText(context,"Save Note successfully",Toast.LENGTH_SHORT).show()
-        }*/
     }
     private fun processResponse(status:Boolean){
         when(status){
             true-> {
-                binding.root.let {
+                view?.let {
                     findNavController().popBackStack()
                 }
-                view.let {
-                    findNavController().popBackStack()
-                }/**/
             }
 
         }
     }
+
 
 
 }

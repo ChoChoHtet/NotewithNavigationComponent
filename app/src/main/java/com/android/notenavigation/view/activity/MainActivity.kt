@@ -1,6 +1,7 @@
 package com.android.notenavigation.view.activity
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.android.notenavigation.R
@@ -9,6 +10,7 @@ import dagger.android.support.DaggerAppCompatActivity
 
 class MainActivity :DaggerAppCompatActivity (){
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +24,7 @@ class MainActivity :DaggerAppCompatActivity (){
     }
 
     private fun setupNavigation() {
-        val navController=findNavController(R.id.nav_host_fragment)
+         navController=findNavController(R.id.nav_host_fragment)
         /**
          * action bar title will be automatically updated when destination changes
          * up button will be displayed when on a non-root destination place
@@ -33,5 +35,5 @@ class MainActivity :DaggerAppCompatActivity (){
     /**
      * NavHostFragment intercept the system back button
      */
-    override fun onSupportNavigateUp()=findNavController(R.id.nav_host_fragment).navigateUp()
+    override fun onSupportNavigateUp()=navController.navigateUp()
 }
