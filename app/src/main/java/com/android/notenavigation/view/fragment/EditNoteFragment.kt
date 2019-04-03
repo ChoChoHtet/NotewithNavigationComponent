@@ -26,7 +26,7 @@ private lateinit var viewModel: EditNoteViewModel
     lateinit var viewModelFactory:ViewModelProvider.Factory
 
     private val noteId by lazy {
-        EditNoteFragmentArgs.fromBundle(arguments).noteId
+        EditNoteFragmentArgs.fromBundle(arguments!!).noteId
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

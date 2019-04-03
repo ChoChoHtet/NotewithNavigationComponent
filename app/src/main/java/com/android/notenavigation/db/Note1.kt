@@ -7,5 +7,5 @@ import android.arch.persistence.room.PrimaryKey
 data class Note1(
     @PrimaryKey(autoGenerate = true)
     var id:Int,
-    var title: String
+    var title: String?
 )

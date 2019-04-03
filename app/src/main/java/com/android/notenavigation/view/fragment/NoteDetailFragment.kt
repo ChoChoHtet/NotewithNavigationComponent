@@ -5,6 +5,7 @@ package com.android.notenavigation.view.fragment
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +28,7 @@ class NoteDetailFragment :DaggerFragment() {
      * get bundle note data
      */
     private val noteId by lazy {
-        NoteDetailFragmentArgs.fromBundle(arguments).noteId
+        NoteDetailFragmentArgs.fromBundle(arguments!!).noteId
     }
     @Inject
     lateinit var viewModelFactory:ViewModelProvider.Factory
