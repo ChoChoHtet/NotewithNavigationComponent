@@ -21,7 +21,7 @@ import javax.inject.Inject
 class NoteListFragment : DaggerFragment(), NoteViewHolder.EventListener {
     override fun toNoteDetailActivity(note: Note1) {
         //pass id
-        var navDirection= NoteListFragmentDirections.ActionNoteDetail(note.id)
+        var navDirection= NoteListFragmentDirections.actionNoteDetail(note.id)
         view?.let {
             findNavController().navigate(navDirection)
         }
