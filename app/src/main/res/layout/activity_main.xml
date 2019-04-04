@@ -3,9 +3,6 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable name="viewModel" type="com.android.notenavigation.viewmodel.NoteListViewModel"/>
-    </data>
     <LinearLayout
 
             android:id="@+id/linearLayout"

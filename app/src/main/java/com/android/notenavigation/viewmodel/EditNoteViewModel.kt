@@ -3,26 +3,26 @@ package com.android.notenavigation.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.android.notenavigation.NoteManager
+import android.databinding.ObservableField
 import com.android.notenavigation.Response
 import com.android.notenavigation.db.Note1
 import com.android.notenavigation.db.NoteDao
 import javax.inject.Inject
 
-class EditNoteViewModel @Inject constructor(private val noteDao: NoteDao):ViewModel() {
-    private var status=MutableLiveData<Response>()
+class EditNoteViewModel @Inject constructor(private val noteDao: NoteDao) : ViewModel() {
+    private var status = MutableLiveData<Response>()
+    var title = ObservableField<String>()
 
-    val observeResponse:LiveData<Response>
-    get() = status
+    val observeResponse: LiveData<Response>
+        get() = status
 
-    fun editNote(id:Int,text:String){
-        //noteManager.editNote(id,text)
-        noteDao.editNote(Note1(id,text))
-        status.value= Response.editNote()
+    fun editNote(id: Int) {
+        noteDao.editNote(Note1(id, title.get()))
+        status.value = Response.editNote()
     }
-    fun currentNote(id: Int){
-       // val data=noteManager.getNote(id)
-        val data=noteDao.getNote(id)
-        status.value= Response.viewNote(data)
+
+    fun currentNote(id: Int) {
+        val data = noteDao.getNote(id)
+        title.set(data.title)
     }
 }

@@ -5,6 +5,9 @@
         xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="note" type="com.android.notenavigation.db.Note1"/>
+        <variable name="viewModel" type="com.android.notenavigation.viewmodel.NoteListViewModel"/>
+        <variable name="navDirection" type="androidx.navigation.NavDirections"/>
+        <variable name="handle" type="com.android.notenavigation.NoteViewHolder.EventListener"/>
     </data>
 
 

@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,15 +51,15 @@ class AddNoteFragment : DaggerFragment() {
                 processResponse(response)
             }
         })
-       /* viewModel.getDestination.observe(this, EventObserver(object : EventListener<Int> {
+        viewModel.getDestination.observe(this, EventObserver(object : EventListener<Int> {
             override fun onEvent(t: Int?) {
                 addNewDestination(t!!)
             }
 
-        }))*/
+        }))
     }
     private fun addNewDestination(id:Int){
-        binding.root.findNavController().navigate(id)
+       findNavController().navigate(id)
     }
     private fun processResponse(status:Boolean){
         when(status){

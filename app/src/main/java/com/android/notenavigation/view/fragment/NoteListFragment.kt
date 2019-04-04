@@ -7,9 +7,11 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -24,16 +26,14 @@ import java.util.*
 import javax.inject.Inject
 
 
-
-
-
 class NoteListFragment : DaggerFragment(), NoteViewHolder.EventListener {
+    //TODO BEST SOLUTION
     override fun toNoteDetailActivity(note: Note1) {
         //pass id
-         var navDirection= NoteListFragmentDirections.actionNoteDetail(note.id)
-         view?.let {
-             findNavController().navigate(navDirection)
-         }
+        val action = NoteListFragmentDirections.actionNoteDetail(note.id)
+        //findNavController().navigate(action)
+        binding.navDirection=action
+        viewModel.setDestination(binding.navDirection!!.actionId)
     }
 
     private lateinit var noteAdapter: NoteAdapter
@@ -57,7 +57,6 @@ class NoteListFragment : DaggerFragment(), NoteViewHolder.EventListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBinding()
-        noteAdapter = NoteAdapter(this)
         setupRecyclerView()
         //load init data
         viewModel.loadNoteList()
@@ -68,35 +67,31 @@ class NoteListFragment : DaggerFragment(), NoteViewHolder.EventListener {
             }
         })
 
-      /*  viewModel.getDestination.observe(this,EventObserver(object : EventListener<Int>{
-            override fun onEvent(t: Int?) {
-                addNewDestination(t!!)
-               // binding.root.findNavController().navigate(R.id.action_add_note)
-
+        viewModel.getDestination.observe(this, EventObserver(object : EventListener<Int> {
+            override fun onEvent(destinationId: Int?) {
+                if (destinationId != null)
+                    addNewDestination(destinationId)
             }
 
-        }))*/
+        }))
 
     }
-    private fun addNewDestination(id:Int){
-        binding.root.findNavController().navigate(id)
-}
+
+    private fun addNewDestination(id: Int) {
+        findNavController().navigate(id,binding.navDirection?.arguments)
+    }
 
     private fun initBinding() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        val action=NoteListFragmentDirections.actionAddNote()
-        binding.navDirection=action
-        //binding.root.findNavController().navigate(action)
+
+        val action = NoteListFragmentDirections.actionAddNote()
+        binding.navDirection = action
     }
 
     private fun processResponse(noteList: List<Note1>) {
-        if (noteList.isEmpty()) {
-            binding.noteList.visibility = View.GONE
-            binding.tvNoNote.visibility = View.VISIBLE
-        } else {
-            binding.noteList.visibility = View.VISIBLE
-            binding.tvNoNote.visibility = View.GONE
+         viewModel.size.set(noteList.size)
+        if (noteList.isNotEmpty()) {
             noteAdapter.setNoteData(noteList)
             noteAdapter.notifyDataSetChanged()
         }
@@ -104,9 +99,10 @@ class NoteListFragment : DaggerFragment(), NoteViewHolder.EventListener {
     }
 
     private fun setupRecyclerView() {
-        binding.noteList.layoutManager =LinearLayoutManager(context)
+        noteAdapter = NoteAdapter(this)
+        binding.noteList.layoutManager = LinearLayoutManager(context)
         binding.noteList.setHasFixedSize(true)
-        binding.noteList.adapter = noteAdapter
+        binding.noteAdapter=noteAdapter
     }
 
 

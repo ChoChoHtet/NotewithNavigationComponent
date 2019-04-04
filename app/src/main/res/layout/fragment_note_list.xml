@@ -4,8 +4,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.databinding.ObservableList"/>
+        <import type="android.view.View"/>
         <variable name="viewModel" type="com.android.notenavigation.viewmodel.NoteListViewModel"/>
         <variable name="navDirection" type="androidx.navigation.NavDirections"/>
+        <variable name="noteAdapter" type="com.android.notenavigation.NoteAdapter"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -15,10 +18,12 @@
             tools:context=".view.fragment.NoteListFragment">
 
         <android.support.v7.widget.RecyclerView
+                android:visibility="@{viewModel.size == 0 ? View.GONE : View.VISIBLE }"
                 android:id="@+id/note_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:adapter="@{noteAdapter}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +43,7 @@
                 app:layout_constraintHorizontal_bias="0.114" android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"/>
         <TextView
-                android:visibility="gone"
+                android:visibility="@{viewModel.size == 0 ? View.VISIBLE : View.GONE }"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:text="No Notes"
