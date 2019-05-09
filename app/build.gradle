@@ -15,11 +15,24 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        resConfigs "en"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            //enable proguard
+            //set minifyEnabled true to remove all unused methods,instructions
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //other parameters
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            //missing signConfig
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
+
+            shrinkResources true
         }
     }
     dataBinding{
